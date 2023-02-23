@@ -1,21 +1,52 @@
-import React from "react";
+import moment from "moment";
+import React, { useState } from "react";
 import Search from "../../assets/icons/Search";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const [searchCity, setSearchCity] = useState(null);
+  const handleSearch = () => {
+    props.setCity(searchCity);
+  };
+  function searchDebounce(callBack, delay) {
+    let timer;
+    return function (...args) {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      props.setLoading(true);
+      timer = setTimeout(() => {
+        props.setLoading(false);
+        callBack();
+      }, delay);
+    };
+  }
+
+  const handleCitySearch = searchDebounce(handleSearch, 1000);
   return (
     <div className="h-20 gap-x-6 flex justify-between capitalize items-center">
       <div className="flex-none">
-        <h2 className="text-3xl font-bold text-slate-700 ">january 2023</h2>
+        <h2 className="text-3xl font-bold text-slate-700 ">
+          {moment(new Date()).format("MMMM YYYY")}
+        </h2>
         <h3 className="text-lg font-bold text-gray-400 ">
-          thursday, jan 4, 2023
+          {`${moment(new Date()).format("dddd")} , ${moment(new Date()).format(
+            "ll"
+          )}`}
         </h3>
       </div>
-      <div className="border flex justify-between items-center pl-4 rounded-md  bg-gray-50 w-full h-12">
-        <Search />
-        <input
-          type="text"
-          className="w-full focus:outline-none bg-transparent border-none h-full ml-4"
-        />
+      <div className="border flex items-center  pl-4 rounded-md  bg-gray-50 w-full h-12">
+        <form
+          onKeyUp={handleCitySearch}
+          className="flex justify-between w-full items-center"
+        >
+          <Search />
+          <input
+            type="text"
+            className="w-full focus:outline-none bg-transparent border-none h-full ml-4"
+            onChange={(e) => setSearchCity(e.target.value)}
+          />
+        </form>
       </div>
     </div>
   );
