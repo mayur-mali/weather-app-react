@@ -22,7 +22,7 @@ export default function Dashboard() {
     const handleApi = async () => {
       await axios
         .get(
-          `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}&days=5&aqi=yes`
+          `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}&days=5&aqi=yes`
         )
 
         .then((data) => {
