@@ -13,18 +13,20 @@ export default function Navbar(props) {
       if (timer) {
         clearTimeout(timer);
       }
-
-      props.setLoading(true);
-      timer = setTimeout(() => {
-        props.setLoading(false);
-        callBack();
-      }, delay);
+      if (searchCity.length > 3) {
+        props.setLoading(true);
+        timer = setTimeout(() => {
+          props.setLoading(false);
+          callBack();
+        }, delay);
+      }
     };
   }
 
-  const handleCitySearch = searchDebounce(handleSearch, 1000);
+  const handleCitySearch = searchDebounce(handleSearch, 500);
+  console.log();
   return (
-    <div className="h-20 gap-x-6 flex justify-between capitalize items-center">
+    <div className="sm:h-20 gap-6 flex flex-col sm:flex-row justify-between capitalize items-center">
       <div className="flex-none">
         <h2 className="text-3xl font-bold text-slate-700 ">
           {moment(new Date()).format("MMMM YYYY")}
