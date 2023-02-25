@@ -12,7 +12,7 @@ import ErrorPage from "../general/ErrorPage";
 export default function Dashboard() {
   const [data, setData] = useState([]);
 
-  const [city, setCity] = useState("london");
+  const [city, setCity] = useState("shirpur");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { current, location, forecast } = data;
@@ -39,18 +39,18 @@ export default function Dashboard() {
     handleApi();
   }, [city]);
 
-  const getLocation = (position) => {
-    const { latitude, longitude } = position.coords;
-    //console.log(latitude, longitude);
-    fetch(
-      `https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${latitude}+${longitude}&pretty=1&no_annotations=1`
-    )
-      .then((response) => response.json())
-      .then((data) => setCity(data.results[0].components.county));
-  };
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(getLocation, console.log);
-  }, []);
+//   const getLocation = (position) => {
+//     const { latitude, longitude } = position.coords;
+//     //console.log(latitude, longitude);
+//     fetch(
+//       `https://api.opencagedata.com/geocode/v1/json?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${latitude}+${longitude}&pretty=1&no_annotations=1`
+//     )
+//       .then((response) => response.json())
+//       .then((data) => setCity(data.results[0].components.county));
+//   };
+//   useEffect(() => {
+//     navigator.geolocation.getCurrentPosition(getLocation, console.log);
+//   }, []);
 
   return (
     <div className="max-w-7xl mx-auto font-Poppins">
